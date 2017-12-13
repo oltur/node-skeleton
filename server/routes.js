@@ -3,16 +3,25 @@ module.exports = app => {
 	var lastId = 1;
 	var messages = [{
 		id: 1,
-		from: 'Moderator',
+		from: 'The Bot',
 		text: 'Welcome to our chat!',
 		messages: []
 	}];
 
-	var getNewId = function() {
+	var getBotReply = function (message) {
+		const wannaReply = Math.random() <= 0.33;
+		if(wannaReply) {
+			const url = "http://ron-swanson-quotes.herokuapp.com/v2/quotes";
+		} else {
+			return null;
+		}
+	}
+
+	var getNewId = function () {
 		return ++lastId;
 	}
 
-	var findMessageById = function(id, arr = messages, level = 1) {
+	var findMessageById = function (id, arr = messages, level = 1) {
 		if (!arr || !arr.length)
 			return null;
 		let result;
@@ -48,7 +57,7 @@ module.exports = app => {
 	app.post(`/messages`, (req, res) => {
 		let request = req.jsonBody;
 		let parentMessage = findMessageById(request.parentId);
-		if(!parentMessage.messages) {
+		if (!parentMessage.messages) {
 			parentMessage.messages = [];
 		}
 		const message = {
