@@ -16,6 +16,7 @@ module.exports = app => {
 		"yes": "Could you provide more details please?",
 		"no": "Please don't be so decisive",
 		"maybe": "Doubts, doubts, doubts...",
+		"really?": "100%!"
 	};
 
 	var botMessagesDynamic = {};
@@ -43,11 +44,11 @@ module.exports = app => {
 					return Promise.resolve(`Already asked before. ${choosenChildMessage.from} answered: "${choosenChildMessage.text}"`);
 				}
 			}
-			if (cleanedText.endsWith('?')) {
-				return Promise.resolve("I don't know... Let's wait, It shoould be somebody smarter here");
-			}
 			if (botMessagesStandard.hasOwnProperty(cleanedText)) {
 				return Promise.resolve(botMessagesStandard[cleanedText]);
+			}
+			if (cleanedText.endsWith('?')) {
+				return Promise.resolve("I don't know... Let's wait, It shoould be somebody smarter here");
 			}
 			if (botMessagesDynamic.hasOwnProperty(cleanedText)) {
 				return Promise.resolve(`As I already said: "${botMessagesDynamic[cleanedText]}"`);

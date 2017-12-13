@@ -66,7 +66,7 @@ app.controller('appController', [
 				};
 				messagesService.post(message);
 				toastr.info(`Sent: ${JSON.stringify(message)}`);
-				//$scope.updateMessages();
+				$scope.updateMessages();
 			}
 			return true;
 		};
