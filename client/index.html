@@ -13,9 +13,7 @@
 	<link rel="stylesheet" href="styles/lib/angular-toastr.min.css">
 
 	<style type="text/css">
-		.container {
-			padding: 200px 0;
-		}
+		.container {}
 
 		.user-data {}
 
@@ -29,11 +27,11 @@
 	</style>
 
 	<script type="text/ng-template" id="messagesTree">
-		<div>Id: {{ message.id }} </div>
-		<div>From: {{ message.from }} </div>
-		<div>Message: {{ message.text }}</div>
 		<div>
-			Reply:
+			<b>{{ message.from }}:</b>
+			{{ message.text }}
+		</div>
+		<div>
 			<input type="text" ng-model="replyText" ng-keypress="replyInputKeyPress(message.id, $event, replyText)" ng-show="replying[message.id]"
 			/>
 			<a href ng-click="replying[message.id]=true; replyText=''" ng-hide="replying[message.id]">reply</a>
@@ -49,15 +47,16 @@
 <body ng-controller="appController">
 	<div class="container">
 		<div class="user-data">
+			<h2>Your Profile</h2>
 			<span>
 				<label for="userName">
 					Your nick:
-					<input id="userName" value="Somebody" />
+					<input ng-model="userName" ng-change="saveUserName(userName)" id="userName" value="Somebody" />
 				</label>
 			</span>
 		</div>
 		<div class="messages">
-			Messages in chat: {{messages.length}}
+			<h2>Chat Messages</h2>
 			<ul>
 				<li ng-repeat="message in messages" ng-include="'messagesTree'">
 				</li>
